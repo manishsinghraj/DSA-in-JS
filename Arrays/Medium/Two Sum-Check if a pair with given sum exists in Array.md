@@ -115,38 +115,3 @@ const target = 14;
 const ans = twoSum(n, arr, target);
 console.log("This is the answer for variant 1:", ans);
 ```
-
-## Optimal Approach using Dutch National Flag Algorithm
-
-**Time Complexity:** O(N), where N is the size of the given array.
-**Reason:** We are using a single loop that can run at most N times.
-
-**Space Complexity:** O(1) as we are not using any extra space.
-
-```javascript
-const sortGivenNumbers = (a, n) => {
-    var low = 0;
-    var mid = 0;
-    var high = n - 1;
-
-    while (mid <= high) {
-        if (a[mid] == 0) {
-            [a[low], a[mid]] = [a[mid], a[low]];
-            low++;
-            mid++;
-        } else if (a[mid] == 1) {
-            mid++;
-        } else {
-            [a[mid], a[high]] = [a[high], a[mid]];
-            high--;
-        }
-    }
-    return a;
-}
-
-let arr = [0, 1, 1, 2, 2, 0, 0, 1, 2, 0];
-var n = arr.length;
-
-console.log(sortGivenNumbers(arr, n));
-```
-
