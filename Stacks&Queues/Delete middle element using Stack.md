@@ -3,7 +3,7 @@
 This JavaScript function deletes the middle element from a stack. It takes two parameters: the original stack and the middle element to be deleted.
 
 ```javascript
-const deleteMiddleEle = (stacks, x) => {
+const deleteMiddleEle = (stacks) => {
     var stack = [...stacks];
     var temp = [];
     var count = 0;
