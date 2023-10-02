@@ -1,5 +1,28 @@
 ## Depth-First Search (DFS) for Graph Traversal
 
+
+    Step 1: Define a Stack of size total number of vertices in the 
+            graph.
+
+    Step 2: Select any vertex as the starting point for traversal. 
+            Visit that vertex and push it on to the Stack.
+
+    Step 3: Visit any one of the adjacent vertices of the vertex,
+            that is at top of the stack and is not visited, and 
+            push it on to the stack. 
+
+    Step 4: Repeat step 3 until there are no new vertices to visit 
+            from each vertex on top of the stack.  
+
+    Step 5: When there is no new vertex to visit, use 
+            backtracking and pop one vertex from the stack. 
+
+    Step 6: Repeat steps 3, 4, and 5 until stack becomes Empty.  
+
+    Step 7: When stack becomes Empty, produce the final 
+            spanning-tree by removing unused edges from the graph.
+
+
 This is an example of a Depth-First Search (DFS) algorithm for traversing a graph.
 
 ### Time Complexity
