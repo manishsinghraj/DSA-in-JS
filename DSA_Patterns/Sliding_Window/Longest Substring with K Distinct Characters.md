@@ -4,6 +4,7 @@ Longest Substring with K Distinct Characters
 
 
 ```js
+//o(n^2) and //o(n)
 function longestSubstrWithKUniqueChars(inputStr, k) {
   if (k <= 0 || k > inputStr.length) {
     return "Invalid input";
@@ -34,7 +35,7 @@ console.log(longestSubstrWithKUniqueChars(inputStr, k)); // Output: "cccdee"
 ```
 
 ```js
-//Optimised - restudy
+//Optimised
 // O(n)
 //o(n)
 function longestSubstrWithKUniqueChars(inputStr, k) {
