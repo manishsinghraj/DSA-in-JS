@@ -1,4 +1,6 @@
-// Node class represents an element in the doubly linked list
+##  Node class represents an element in the doubly linked list
+
+```js
 class Node {
     constructor(value) {
         this.value = value; // The data in this node
@@ -158,3 +160,4 @@ myDoublyList.append(500);
 myDoublyList.prepend(5); // myDoublyList: 5 <-> 100 <-> 200 <-> 300 <-> 400 <-> 500
 myDoublyList.delete(1); // Delete the first occurrence of 1 (not in the list)
 console.log(myDoublyList); // Output: DoublyLinkedList { head: Node { value: 5,
+```
