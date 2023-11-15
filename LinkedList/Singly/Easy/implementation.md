@@ -159,7 +159,7 @@ console.log(myList.getAtIndex(7)); // Output: null (Index out of bound)
 ```
 
 
-Circular Singly Linked List
+# Circular Singly Linked List
 
 ```js
 // Node class represents an element in the circular singly linked list
@@ -192,7 +192,7 @@ class CircularSinglyLinkedList {
         }
     }
 
-    // Prepend a node at the beginning of the circular singly linked list
+    // Insert a node at the beginning of the circular singly linked list
     prepend(value) {
         const newNode = new Node(value); // Create a new node
         if (!this.head) {
@@ -216,15 +216,13 @@ class CircularSinglyLinkedList {
         }
         let current = this.head;
         let prev = null;
-
-        // Find the node to delete and its previous node
         do {
             if (current.value === value) {
                 if (current === this.head) {
                     // If the node to delete is the head, update the next reference of the last node
                     let last = this.head;
                     while (last.next !== this.head) {
-                        last = last.next;
+                        last = last.next; // Traverse to the last node
                     }
                     last.next = this.head.next;
                     this.head = this.head.next;
@@ -234,7 +232,7 @@ class CircularSinglyLinkedList {
                 }
                 return;
             }
-            prev = current;
+            prev = current; // Save the previous node
             current = current.next; // Move to the next node
         } while (current !== this.head); // Continue until we reach the head again
     }
@@ -285,10 +283,68 @@ class CircularSinglyLinkedList {
                 // If the list is not empty, insert at the beginning
                 let last = this.head;
                 while (last.next !== this.head) {
-                    last = last.next;
+                    last = last.next; // Traverse to the last node
                 }
                 newNode.next = this.head;
+                last.next = newNode;
                 this.head = newNode;
-                last.next = this.head;
             }
+            return newNode;
+        }
+
+        let current = this.head;
+        let count = 0;
+
+        do {
+            if (count === index - 1) {
+                newNode.next = current.next;
+                current.next = newNode;
+                return current;
+            }
+            current = current.next;
+            count++;
+        } while (current !== this.head);
+
+        console.log("Index out of range");
+    }
+
+    // Get at Index
+    getAtIndex(index) {
+        if (index < 0) {
+            return console.log("Invalid index");
+        }
+
+        let current = this.head;
+        let currentIndex = 0;
+
+        do {
+            if (currentIndex === index) {
+                return current;
+            }
+            current = current.next;
+            currentIndex++;
+        } while (current !== this.head);
+
+        console.log("Index out of bound");
+        return null;
+    }
+}
+
+// Example usage
+var myCircularSinglyList = new CircularSinglyLinkedList();
+
+myCircularSinglyList.append(100);
+myCircularSinglyList.append(200);
+myCircularSinglyList.append(300);
+myCircularSinglyList.append(400);
+myCircularSinglyList.append(500);
+myCircularSinglyList.prepend(5); // myCircularSinglyList: 5 -> 500 -> 400 -> 300 -> 200 -> 100
+myCircularSinglyList.delete(200); // Delete the first occurrence of 200
+console.log(myCircularSinglyList); // Output: CircularSinglyLinkedList { head: Node { value: 5, ... } }
+console.log(myCircularSinglyList.search(300)); // Output: Node { value: 300, ... }
+console.log(myCircularSinglyList.traverse()); // Output: "5 -> 500 -> 400 -> 300 -> 100"
+console.log(myCircularSinglyList.insertAtIndex(2, 350)); // Insert 350 at index 2
+console.log(myCircularSinglyList.traverse()); // Output: "5 -> 500 -> 350 -> 400 -> 300 -> 100"
+console.log(myCircularSinglyList.getAtIndex(4)); // Output: Node { value: 300, ... }
+
 ```           
