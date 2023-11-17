@@ -1,0 +1,55 @@
+```js
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+const removeDuplicatesFromUnsorted = (head) => {
+  if (!head) return null;
+
+  const seenValues = new Set();
+  let current = head;
+  let prev = null;
+
+  while (current !== null) {
+    const currentValue = current.val;
+
+    // Check if the current value is already seen
+    if (seenValues.has(currentValue)) {
+      // Remove the duplicate node
+      prev.next = current.next;
+    } else {
+      // Add the current value to the set
+      seenValues.add(currentValue);
+      prev = current;
+    }
+
+    current = current.next;
+  }
+
+  return head;
+};
+
+// Example usage:
+// Create an unsorted linked list: 3 -> 1 -> 4 -> 3 -> 2 -> 1 -> 4
+let head = new Node(3);
+head.next = new Node(1);
+head.next.next = new Node(4);
+head.next.next.next = new Node(3);
+head.next.next.next.next = new Node(2);
+head.next.next.next.next.next = new Node(1);
+head.next.next.next.next.next.next = new Node(4);
+
+// Call the function to remove duplicates
+head = removeDuplicatesFromUnsorted(head);
+
+// Print the linked list to check the result
+let current = head;
+while (current !== null) {
+  console.log(current.val);
+  current = current.next;
+}
+
+```
