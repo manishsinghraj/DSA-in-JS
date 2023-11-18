@@ -57,3 +57,77 @@ while (current !== null) {
 }
 ```
 
+
+
+# Recursion
+```js
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  // Function to reverse the linked list
+  reverse() {
+    this.head = this.reverseUtil(this.head, null);
+  }
+
+  // Helper function for reversing the linked list
+  reverseUtil(current, prev) {
+    // Base case: if the current node is null, the list is reversed
+    if (!current) {
+      return prev;
+    }
+
+    // Save the next node
+    const next = current.next;
+
+    // Reverse the link
+    current.next = prev;
+
+    // Recursively reverse the rest of the list
+    return this.reverseUtil(next, current);
+  }
+
+  // Function to add a node to the beginning of the linked list
+  prepend(data) {
+    const newNode = new Node(data);
+    newNode.next = this.head;
+    this.head = newNode;
+  }
+
+  // Function to print the linked list
+  print() {
+    let current = this.head;
+    const result = [];
+
+    while (current) {
+      result.push(current.data);
+      current = current.next;
+    }
+
+    console.log(result.join(' -> '));
+  }
+}
+
+// Example usage:
+const linkedList = new LinkedList();
+linkedList.prepend(3);
+linkedList.prepend(2);
+linkedList.prepend(1);
+
+console.log("Original Linked List:");
+linkedList.print();
+
+linkedList.reverse();
+
+console.log("Reversed Linked List:");
+linkedList.print();
+
+```
