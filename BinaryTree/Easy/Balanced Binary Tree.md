@@ -2,6 +2,9 @@
 
 **Problem Statement:** Check whether the given Binary Tree is a Balanced Binary Tree or not. A binary tree is balanced if, for all nodes in the tree, the difference between the left and right subtree height is not more than 1.
 
+`for every node -> left height - right height <= 1` is balanced
+
+
 **Solution 1: Naive approach**
 **Time Complexity:** O(N * N) (For every node, the Height Function is called, which takes O(N) time. Hence, for every node, it becomes N * N.)
 **Space Complexity:** O(1) (Extra Space) + O(H) (Recursive Stack Space where “H” is the height of the tree)
@@ -69,3 +72,27 @@ function diffHeight(root) {
 
     return 1 + Math.max(leftHeight, rightHeight);
 }
+```
+
+Refer This
+
+```js
+const isBalanced = (root) => {
+    return diffHeight(root) !== -1;
+}
+
+const diffHeight = (root) => {
+    if (root === null) {
+        return 0;
+    }
+
+    const left = diffHeight(root.left);
+    const right = diffHeight(root.right);
+
+    if (left === -1 || right === -1 || Math.abs(left - right) > 1) {
+        return -1;
+    }
+
+    return 1 + Math.max(left, right);
+}
+```
