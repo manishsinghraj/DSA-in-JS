@@ -162,9 +162,14 @@ class BinarySearchTree {
                     return root.right;
                 }
 
-                //Remove Node - 2 children
-                root.value = this.min(root.right);
-                root.right = this.deleteNode(root.right, root.value);
+                // Remove Node - 2 children
+                if (root.left && root.right) {
+                    // Find the minimum value in the right subtree
+                    root.value = this.min(root.right);
+                    // Recursively delete the node with the minimum value in the right subtree
+                    root.right = this.deleteNode(root.right, root.value);
+                }
+
             }
             return root;
         }
@@ -228,3 +233,58 @@ function misc(nestedArrays) {
 }
 
 ```
+
+
+## how deletion of 2 node works
+
+Certainly! Let's go through an illustration step by step:
+
+Consider the following binary search tree (BST):
+
+```
+        10
+       /  \
+      5    15
+     / \   / \
+    3   7 12  18
+```
+
+Now, let's say we want to delete the node with the value `10`, which has two children.
+
+### Step 1: Identify the Node to Delete
+
+The node to delete is `10`, and it has two children.
+
+### Step 2: Find the Minimum Value in the Right Subtree
+
+We need to find the minimum value in the right subtree of the node to be deleted. Starting from the right child (`15`), we traverse the left branches until we reach the leftmost node, which is `12`.
+
+### Step 3: Replace Node's Value
+
+Replace the value of the node to be deleted (`10`) with the minimum value found in the right subtree (`12`).
+
+```
+        12
+       /  \
+      5    15
+     / \   / \
+    3   7 12  18
+```
+
+### Step 4: Recursively Delete the Minimum Value Node
+
+Now, we recursively delete the node with the minimum value in the right subtree (`12`). Since `12` has no children, it will be simply removed.
+
+```
+        12
+       /  \
+      5    15
+     / \      \
+    3   7      18
+```
+
+### Final Result
+
+The node with the value `10` has been successfully deleted, and the binary search tree is still valid.
+
+This process ensures that we maintain the binary search tree property while removing a node with two children. We find a replacement node from the right subtree (in this case, the minimum value) to preserve the ordering of the tree.
