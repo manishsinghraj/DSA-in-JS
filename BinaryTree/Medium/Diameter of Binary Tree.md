@@ -86,3 +86,31 @@ var height= function(root, result){
 
 
 ```
+
+The line `let result = {diameter: 0};` initializes an object `result` with a property `diameter` set to 0. This approach is commonly used in JavaScript to create an object with a default value.
+
+In this particular case, the `result` object is used to store the maximum diameter encountered during the recursion. The reason for using an object with a property is that primitive values (like numbers) are passed by value in JavaScript, meaning that changes to the parameter within the recursive calls wouldn't persist outside of the current function call.
+
+By using an object, you are passing a reference to the object itself. This way, changes made to the object's properties inside the recursive calls are visible outside of the function, and you can effectively use it to store and update the maximum diameter.
+
+Here's how it works in the given code:
+
+```javascript
+let result = {diameter: 0};
+```
+
+This line creates an object `result` with an initial `diameter` value of 0.
+
+```javascript
+height(root, result);
+```
+
+The `result` object is then passed to the `height` function, where it's used to store and update the maximum diameter.
+
+```javascript
+return result.diameter;
+```
+
+Finally, the function returns the maximum diameter stored in the `result` object.
+
+In summary, using an object to store the result allows you to maintain state across recursive calls and update values effectively. It's a common technique in JavaScript when you need to modify values within a function and have those changes reflected outside the function.
