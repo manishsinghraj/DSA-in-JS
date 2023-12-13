@@ -23,40 +23,36 @@ class MinHeap {
   }
 
   push(key) {
-    this.heap.push(key);
+    this.heap[this.heap.length] = key;
     this.heapifyUp();
   }
 
   heapifyUp() {
     let currentIndex = this.heap.length - 1;
 
-    while (currentIndex > 0 && this.heap[currentIndex] < this.heap[this.getParentIndex(currentIndex)]) {
+    while (this.heap[currentIndex] < this.heap[this.getParentIndex(currentIndex)]) {
       this.swapIndex(currentIndex, this.getParentIndex(currentIndex));
       currentIndex = this.getParentIndex(currentIndex);
     }
   }
 
   pop() {
-    if (this.heap.length === 0) {
-      return null;
-    }
-
-    const minValue = this.heap[0];
+    let minValue = this.heap[0];
     this.heap[0] = this.heap[this.heap.length - 1];
     this.heap.length--;
-    this.heapifyDown(0);
+    this.heapifyDown();
     return minValue;
   }
 
-  heapifyDown(index) {
-    let currentIndex = index;
+  heapifyDown() {
+    let currentIndex = 0;
 
-    while (this.getLeftChildIndex(currentIndex) < this.heap.length) {
+    while (this.heap[this.getLeftChildIndex(currentIndex)] !== undefined) {
       let smallestChildIndex = this.getLeftChildIndex(currentIndex);
-      const rightChildIndex = this.getRightChildIndex(currentIndex);
-      const leftChildIndex = this.getLeftChildIndex(currentIndex);
+      let rightChildIndex = this.getRightChildIndex(currentIndex);
+      let leftChildIndex = this.getLeftChildIndex(currentIndex);
 
-      if (rightChildIndex < this.heap.length && this.heap[rightChildIndex] < this.heap[leftChildIndex]) {
+      if (this.heap[rightChildIndex] && this.heap[rightChildIndex] < this.heap[leftChildIndex]) {
         smallestChildIndex = rightChildIndex;
       }
 
@@ -68,7 +64,46 @@ class MinHeap {
       }
     }
   }
+
+  peek() {
+    return this.heap[0];
+  }
+
+  size() {
+    return this.heap.length;
+  }
+
+  isEmpty() {
+    return this.heap.length === 0;
+  }
+
+  buildHeap(array) {
+    this.heap = array;
+    for (let i = Math.floor(this.heap.length / 2); i >= 0; i--) {
+      this.heapifyDown(i);
+    }
+  }
+
+  updateKey(index, newValue) {
+    if (index < 0 || index >= this.heap.length) {
+      return;
+    }
+    this.heap[index] = newValue;
+    this.heapifyUp(index);
+    this.heapifyDown(index);
+  }
+
+  removeKey(index) {
+    if (index < 0 || index >= this.heap.length) {
+      return;
+    }
+    this.swapIndex(index, this.heap.length - 1);
+    this.heap.pop();
+    this.heapifyUp(index);
+    this.heapifyDown(index);
+  }
 }
+
 
 // Example usage:
 const minHeap = new MinHeap();
@@ -113,40 +148,36 @@ class MaxHeap {
   }
 
   push(key) {
-    this.heap.push(key);
+    this.heap[this.heap.length] = key;
     this.heapifyUp();
   }
 
   heapifyUp() {
     let currentIndex = this.heap.length - 1;
 
-    while (currentIndex > 0 && this.heap[currentIndex] > this.heap[this.getParentIndex(currentIndex)]) {
+    while (this.heap[currentIndex] > this.heap[this.getParentIndex(currentIndex)]) {
       this.swapIndex(currentIndex, this.getParentIndex(currentIndex));
       currentIndex = this.getParentIndex(currentIndex);
     }
   }
 
   pop() {
-    if (this.heap.length === 0) {
-      return null;
-    }
-
-    const maxValue = this.heap[0];
+    let maxValue = this.heap[0];
     this.heap[0] = this.heap[this.heap.length - 1];
     this.heap.length--;
-    this.heapifyDown(0);
+    this.heapifyDown();
     return maxValue;
   }
 
-  heapifyDown(index) {
-    let currentIndex = index;
+  heapifyDown() {
+    let currentIndex = 0;
 
-    while (this.getLeftChildIndex(currentIndex) < this.heap.length) {
+    while (this.heap[this.getLeftChildIndex(currentIndex)] !== undefined) {
       let biggestChildIndex = this.getLeftChildIndex(currentIndex);
-      const rightChildIndex = this.getRightChildIndex(currentIndex);
-      const leftChildIndex = this.getLeftChildIndex(currentIndex);
+      let rightChildIndex = this.getRightChildIndex(currentIndex);
+      let leftChildIndex = this.getLeftChildIndex(currentIndex);
 
-      if (rightChildIndex < this.heap.length && this.heap[rightChildIndex] > this.heap[leftChildIndex]) {
+      if (this.heap[rightChildIndex] && this.heap[rightChildIndex] > this.heap[leftChildIndex]) {
         biggestChildIndex = rightChildIndex;
       }
 
@@ -157,6 +188,44 @@ class MaxHeap {
         return;
       }
     }
+  }
+
+  peek() {
+    return this.heap[0];
+  }
+
+  size() {
+    return this.heap.length;
+  }
+
+  isEmpty() {
+    return this.heap.length === 0;
+  }
+
+  buildHeap(array) {
+    this.heap = array;
+    for (let i = Math.floor(this.heap.length / 2); i >= 0; i--) {
+      this.heapifyDown(i);
+    }
+  }
+
+  updateKey(index, newValue) {
+    if (index < 0 || index >= this.heap.length) {
+      return;
+    }
+    this.heap[index] = newValue;
+    this.heapifyUp(index);
+    this.heapifyDown(index);
+  }
+
+  removeKey(index) {
+    if (index < 0 || index >= this.heap.length) {
+      return;
+    }
+    this.swapIndex(index, this.heap.length - 1);
+    this.heap.pop();
+    this.heapifyUp(index);
+    this.heapifyDown(index);
   }
 }
 
