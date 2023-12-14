@@ -93,3 +93,75 @@ dfs(V, adj) {
     return ans;
 }
 ```
+
+# Transitive Closure of a Graph using DFS
+
+```js
+class Graph {
+  constructor(vertices) {
+    this.vertices = vertices;
+    this.adjacencyMatrix = Array.from({ length: vertices }, () => Array(vertices).fill(0));
+  }
+
+  addEdge(from, to) {
+    this.adjacencyMatrix[from][to] = 1;
+  }
+
+  transitiveClosure() {
+    const closure = Array.from({ length: this.vertices }, () => Array(this.vertices).fill(false));
+
+    for (let i = 0; i < this.vertices; i++) {
+      this.dfs(i, i, closure);
+    }
+
+    return closure;
+  }
+
+  dfs(start, current, closure) {
+    closure[start][current] = true;
+    // console.log(`${[start]}, ${[current]} - ${closure[start][current]}`)
+    for (let next = 0; next < this.vertices; next++) {
+      // console.log(`${[current]}, ${[next]} -  ${this.adjacencyMatrix[current][next]}`)
+      if (this.adjacencyMatrix[current][next] && !closure[start][next]) {
+        this.dfs(start, next, closure);
+      }
+    }
+  }
+}
+
+// Example usage:
+const graph = new Graph(4);
+
+graph.addEdge(0, 1);
+graph.addEdge(0, 2);
+graph.addEdge(1, 2);
+graph.addEdge(2, 0);
+graph.addEdge(2, 3);
+graph.addEdge(3, 3);
+
+
+
+for(let row of graph.adjacencyMatrix){
+  console.log(row)
+}
+
+const closureMatrix = graph.transitiveClosure();
+
+console.log("Transitive Closure Matrix:");
+for (let row of closureMatrix) {
+  console.log(row);
+}
+
+// graph:
+// [0, 1, 1, 0]
+// [0, 0, 1, 0]
+// [1, 0, 0, 1]
+// [0, 0, 0, 1]
+
+// Transitive Closure Matrix:
+// [true, true, true, true]
+// [true, true, true, true]
+// [true, true, true, true]
+// [false, false, false, true]
+
+```
