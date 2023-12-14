@@ -1,3 +1,4 @@
+# Adjacency List
 ```js
 class Graph {
     constructor() {
@@ -125,4 +126,140 @@ Attempting to remove edge 'B-A':
 Graph after attempting to remove edge 'B-A':
 A ->
 C ->
+```
+
+
+# Adjacency Matrix
+
+```JS
+class Graph {
+  constructor() {
+    this.vertices = [];
+    this.adjacencyMatrix = [];
+  }
+
+  // addVertex
+  addVertex(vertex) {
+    if (!this.vertices.includes(vertex)) {
+      this.vertices.push(vertex);
+
+      // Extend the adjacency matrix for the new vertex
+      for (let row of this.adjacencyMatrix) {
+        row.push(0);
+      }
+      console.log("this.adjacencyMatrix1", this.adjacencyMatrix); //when 2 vertices are added, this is how it looks - [ [ 0, 0 ] ]
+
+      const newRow = new Array(this.vertices.length).fill(0);
+      this.adjacencyMatrix.push(newRow);
+      console.log("this.adjacencyMatrix2", this.adjacencyMatrix); //when 2 vertices are added, this is how it looks - [ [ 0, 0 ], [ 0, 0 ] ]
+    }
+  }
+
+  // addEdge
+  addEdge(vertex1, vertex2) {
+    const index1 = this.vertices.indexOf(vertex1);
+    const index2 = this.vertices.indexOf(vertex2);
+
+    if (index1 === -1 || index2 === -1) {
+      console.log("Vertices not found");
+      return;
+    }
+
+    this.adjacencyMatrix[index1][index2] = 1;
+    this.adjacencyMatrix[index2][index1] = 1;
+  }
+
+  // hasEdge
+  hasEdge(vertex1, vertex2) {
+    const index1 = this.vertices.indexOf(vertex1);
+    const index2 = this.vertices.indexOf(vertex2);
+
+    if (index1 === -1 || index2 === -1) {
+      console.log("Vertices not found");
+      return false;
+    }
+
+    return this.adjacencyMatrix[index1][index2] === 1 && this.adjacencyMatrix[index2][index1] === 1;
+  }
+
+  // removeEdge
+  removeEdge(vertex1, vertex2) {
+    const index1 = this.vertices.indexOf(vertex1);
+    const index2 = this.vertices.indexOf(vertex2);
+
+    if (index1 === -1 || index2 === -1) {
+      console.log("Vertices not found");
+      return;
+    }
+
+    this.adjacencyMatrix[index1][index2] = 0;
+    this.adjacencyMatrix[index2][index1] = 0;
+  }
+
+  // removeVertex
+  removeVertex(vertex) {
+    const index = this.vertices.indexOf(vertex);
+
+    if (index === -1) {
+      console.log("Vertex not found");
+      return;
+    }
+
+    // Remove the vertex from vertices array
+    this.vertices.splice(index, 1);
+
+    // Remove the corresponding row and column from the adjacency matrix
+    this.adjacencyMatrix.splice(index, 1);
+    for (let row of this.adjacencyMatrix) {
+      row.splice(index, 1);
+    }
+  }
+
+  // Display
+  display() {
+    console.log("Vertices:", this.vertices);
+    console.log("Adjacency Matrix:");
+
+    for (let row of this.adjacencyMatrix) {
+      console.log(row);
+    }
+  }
+}
+
+// Example usage:
+const graph = new Graph();
+
+graph.addVertex('A');
+graph.addVertex('B');
+graph.addVertex('C');
+graph.addVertex('D');
+
+graph.addEdge('A', 'B');
+graph.addEdge('A', 'C');
+graph.addEdge('B', 'D');
+
+graph.display();
+
+
+//output
+
+// this.adjacencyMatrix1[]
+// this.adjacencyMatrix2[[0]]
+// this.adjacencyMatrix1[[0, 0]]
+// this.adjacencyMatrix2[[0, 0], [0, 0]]
+// this.adjacencyMatrix1[[0, 0, 0], [0, 0, 0]]
+// this.adjacencyMatrix2[[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+// this.adjacencyMatrix1[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+// this.adjacencyMatrix2[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+
+
+// Vertices: ['A', 'B', 'C', 'D']
+
+
+// Adjacency Matrix:
+// [0, 1, 1, 0]
+// [1, 0, 0, 1]
+// [1, 0, 0, 0]
+// [0, 1, 0, 0]
+
 ```
