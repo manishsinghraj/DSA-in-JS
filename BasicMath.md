@@ -71,6 +71,37 @@ const isPalindrome = (n) => {
     else return false;
 
 }
+
+console.log(palindrome(121));
+
+const palindrome = (str) => {
+    let givenStr = str;
+    let reversedStr = '';
+
+    for(let i = str.length -1; i >=0; i--){
+        reversedStr += str[i];
+    }
+
+    return reversedStr === givenStr;
+}
+
+console.log(palindrome("mAm"));
+
+
+const isPalindrome = (input) => {
+    // Convert input to string if it's a number
+    const str = typeof input === 'number' ? String(input) : input;
+
+    // Reverse the string
+    const reversedStr = str.split('').reverse().join('');
+
+    // Check if the original string is equal to the reversed string
+    return str === reversedStr;
+}
+
+console.log(isPalindrome(121)); // true (number)
+console.log(isPalindrome("12s1")); // true (string)
+
 ```
 
 ```js
@@ -81,6 +112,8 @@ const isPalindrome = (n) => {
 // 123 / 10 = 12 => 12 % 10 => 2 * 2 * 2
 // sum = sum + ld
 
+// Armstrong Numbers
+// 1, 2, 3, 4, 5, 6, 7, 8, 9, 153
 
 const isArmstrong = (n) => {
     var sum = 0;
@@ -188,6 +221,21 @@ const isPrime2 = (n) => {
 
 }
 //TC - O(N)
+
+
+const isPrime3 = (n) => {
+    if (n <= 1) {
+        return false; // 0 and 1 are not prime numbers
+    }
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) {
+            return false; // If n is divisible by any number less than or equal to its square root, it's not prime
+        }
+    }
+    return true; // If no divisors are found, n is prime
+}
+
+console.log(isPrime3(2)); // Output: false
 ```
 
 ```js
